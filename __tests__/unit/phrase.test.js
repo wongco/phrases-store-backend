@@ -1,4 +1,4 @@
-/** jest tests for phrase class */
+/** use test database as specified in config.js */
 process.env.NODE_ENV = 'test';
 
 const Phrase = require('../../models/Phrase');
@@ -19,19 +19,25 @@ beforeEach(async () => {
 });
 
 describe('getPhrases method', () => {
-  it('getting phrases with no default request options succeeds', async () => {
+  it('setting no default request options succeeds', async () => {
     const requestOptions = {};
     const result = await Phrase.getPhrases(requestOptions);
+
     expect(result).toHaveLength(4);
+    expect(result[0]).toHaveProperty('id');
+    expect(result[0]).toHaveProperty('text');
+    expect(result[0]).toHaveProperty('createdat');
   });
 
-  it('getting phrases with a limit should return correct number of entries', async () => {
+  it('setting a limit should return correct number of entries', async () => {
     const result = await Phrase.getPhrases({ limit: 2 });
+
     expect(result).toHaveLength(2);
   });
 
-  it('getting phrases with a limit and page returns correct results', async () => {
+  it('setting a limit and pagination option returns correct results', async () => {
     const result = await Phrase.getPhrases({ page: 2, limit: 2 });
+
     expect(result).toHaveLength(2);
     expect(result[0]).toHaveProperty('text', 'Second Phrase Entry');
     expect(result[1]).toHaveProperty('text', 'First Phrase Entry');
@@ -39,10 +45,20 @@ describe('getPhrases method', () => {
 });
 
 describe('addPhrase method', () => {
-  // if('adding a phrase ')
+  it('adding a new phrase should succeed and return added entry data', async () => {
+    const inputPhrase = 'Fifth entry';
+    const result = await Phrase.addPhrase(inputPhrase);
+
+    expect(result).toHaveProperty('id');
+    expect(result).toHaveProperty('text', inputPhrase);
+    expect(result).toHaveProperty('createdat');
+
+    const updatedPhraseList = await Phrase.getPhrases({});
+    expect(updatedPhraseList).toHaveLength(5);
+  });
 });
 
-afterAll(async function() {
+afterAll(async () => {
   // close db connection
   await db.end();
 });

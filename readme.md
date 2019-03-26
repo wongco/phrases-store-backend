@@ -25,8 +25,26 @@ GET - /phrases (pagination and limit options)
 
 POST - /phrases
 
+## Build With
+
+- Node.js - Server Language
+- Express.js - Node Web Framework
+- PostgreSQL - SQL Database
+- dotenv - Env Variable Parser
+- pg - PostgreSQL client for Node.js
+
+Testing stack:
+
+- jest - Testing Library
+- supertest - Testing Library (mock http requests)
+- morgan - HTTP Request Logger
+
 ## Future Addons
 
 - Further Exploration:
 
   - Add duplication check in phrase db model
+
+## Author
+
+WongCo - https://github.com/wongco

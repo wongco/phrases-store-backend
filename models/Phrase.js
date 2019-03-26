@@ -9,7 +9,7 @@ class Phrase {
    * @description - gets list of phrases from the database - latest to oldest
    * @property {number} limit - numer of items to limit to
    * @property {number} page - pagination option
-   * @return {Promise <[ { id, text}, ... ]>}
+   * @return {Promise <[ { id, text, createdat }, ... ]>}
    */
   static async getPhrases({ page = 0, limit = 25 }) {
     const result = await db.query(
@@ -21,16 +21,14 @@ class Phrase {
 
   /**
    * @description - add new phrase to database
-   * @property {number} limit - numer of items to limit to
-   * @property {number} page - pagination option
-   * @return {Promise <[ { id, text}, ... ]>}
+   * @return {Promise { id, text, createdat }>}
    */
   static async addPhrase(text) {
     const result = await db.query(
-      'INSERT INTO phrases (text) VALUES ($1) RETURNING id, text',
+      'INSERT INTO phrases (text) VALUES ($1) RETURNING id, text, createdat',
       [text]
     );
-    return result.rows;
+    return result.rows[0];
   }
 }
 

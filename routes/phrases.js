@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
 /** POST - /phrases
  * @description: adds a new phrase to the database
  * @param { object } req.body - request body
- * @param { text } req.body.text - new phrase text to add
+ * @param { string } req.body.text - new phrase text to add
  */
 router.post('/', (req, res, next) => {
   // make request to api and confirm add
