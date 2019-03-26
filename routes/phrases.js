@@ -1,6 +1,9 @@
 const express = require('express');
 const router = new express.Router();
 const APIError = require('../models/ApiError');
+const Phrase = require('../models/Phrase');
+const validateJSONSchema = require('../helpers/validateJSONSchema');
+const addPhraseSchema = require('../schemas/addPhraseSchema.json');
 
 /** Base Route /phrases */
 
@@ -10,27 +13,49 @@ const APIError = require('../models/ApiError');
  * @param { number } page - pagination option
  * @param { number } limit - limit amount of items to return
  */
-router.get('/', (req, res, next) => {
-  // make request to api and get results
-  // return data with message
-
-  return res.json({
-    message: 'get route!'
-  });
+router.get('/', async (req, res, next) => {
+  try {
+    const { page = 0, limit = 25 } = req.query;
+    const phrases = await Phrase.getPhrases({ page, limit });
+    return res.json({
+      phrases
+    });
+  } catch (error) {
+    const err = new APIError(
+      'Resource is currently unavailable, please try again later',
+      500
+    );
+    return next(err);
+  }
 });
 
 /** POST - /phrases
  * @description: adds a new phrase to the database
  * @param { object } req.body - request body
- * @param { string } req.body.text - new phrase text to add
+ * @param { object } req.body.phrase - phrase object
+ * @param { string } req.body.phrase.text - new phrase text to add
  */
-router.post('/', (req, res, next) => {
-  // make request to api and confirm add
-  // return data with message
+router.post('/', async (req, res, next) => {
+  try {
+    validateJSONSchema(req.body, addPhraseSchema);
+  } catch (error) {
+    return next(error);
+  }
 
-  return res.json({
-    message: 'post route!'
-  });
+  try {
+    const { text } = req.body.phrase;
+    const phrase = await Phrase.addPhrase(text);
+    return res.json({
+      phrase,
+      message: 'Successfully added!'
+    });
+  } catch (error) {
+    const err = new APIError(
+      'Resource is currently unavailable, please try again later',
+      500
+    );
+    return next(err);
+  }
 });
 
 // exports router for app.js use

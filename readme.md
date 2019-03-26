@@ -21,9 +21,8 @@ To install application
 
 ## Endpoints
 
-GET - /phrases (pagination and limit options)
-
-POST - /phrases
+- GET - /phrases (pagination and limit options)
+- POST - /phrases
 
 ## Build With
 
@@ -31,6 +30,7 @@ POST - /phrases
 - Express.js - Node Web Framework
 - PostgreSQL - SQL Database
 - dotenv - Env Variable Parser
+- jsonschema - JSON Validation Library
 - pg - PostgreSQL client for Node.js
 
 Testing stack:

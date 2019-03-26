@@ -1,0 +1,40 @@
+{
+  "definitions": {},
+  "$schema": "",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "default": null,
+  "additionalProperties": false,
+  "required": ["user"],
+  "properties": {
+    "user": {
+      "$id": "#/properties/user",
+      "type": "object",
+      "title": "The User Schema",
+      "default": null,
+      "additionalProperties": false,
+      "required": ["username", "password"],
+      "properties": {
+        "username": {
+          "$id": "#/properties/user/properties/username",
+          "type": "string",
+          "title": "The Username Schema",
+          "default": "",
+          "examples": ["bob"],
+          "minLength": 3,
+          "pattern": "^(.*)$"
+        },
+        "password": {
+          "$id": "#/properties/user/properties/password",
+          "type": "string",
+          "title": "The Password Schema",
+          "default": "",
+          "examples": ["abcdef"],
+          "minLength": 6,
+          "pattern": "^(.*)$"
+        }
+      }
+    }
+  }
+}

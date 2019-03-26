@@ -1,8 +1,5 @@
 const db = require('../db');
 
-// class models
-const APIError = require('./ApiError');
-
 /** Phrase DB Model */
 class Phrase {
   /**

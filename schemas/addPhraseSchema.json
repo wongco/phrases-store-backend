@@ -1,0 +1,31 @@
+{
+  "definitions": {},
+  "$schema": "",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "default": null,
+  "additionalProperties": false,
+  "required": ["phrase"],
+  "properties": {
+    "phrase": {
+      "$id": "#/properties/phrase",
+      "type": "object",
+      "title": "The Phrase Schema",
+      "default": null,
+      "additionalProperties": false,
+      "required": ["text"],
+      "properties": {
+        "text": {
+          "$id": "#/properties/phrase/properties/text",
+          "type": "string",
+          "title": "The Text Schema",
+          "default": "",
+          "examples": ["New Postss!"],
+          "minLength": 1,
+          "pattern": "^(.*)$"
+        }
+      }
+    }
+  }
+}
