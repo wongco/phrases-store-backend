@@ -3,17 +3,20 @@ const db = require('../db');
 // class models
 const APIError = require('./ApiError');
 
-/** User on the site */
-
-class Phrases {
+/** Phrase DB Model */
+class Phrase {
   /**
-   * @description - gets list of phrases from the database
+   * @description - gets list of phrases from the database - latest to oldest
    * @property {number} limit - numer of items to limit to
    * @property {number} page - pagination option
    * @return {Promise <[ { id, text}, ... ]>}
    */
-  static async getPhrases({ page, limit }) {
-    // make db call to postgres and obtain data
+  static async getPhrases({ page = 0, limit = 25 }) {
+    const result = await db.query(
+      'SELECT * FROM phrases ORDER BY createdat DESC OFFSET $1 LIMIT $2',
+      [page, limit]
+    );
+    return result.rows;
   }
 
   /**
@@ -23,8 +26,12 @@ class Phrases {
    * @return {Promise <[ { id, text}, ... ]>}
    */
   static async addPhrase(text) {
-    // make db call to postgres and insert text
+    const result = await db.query(
+      'INSERT INTO phrases (text) VALUES ($1) RETURNING id, text',
+      [text]
+    );
+    return result.rows;
   }
 }
 
-module.exports = Phrases;
+module.exports = Phrase;
