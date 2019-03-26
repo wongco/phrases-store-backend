@@ -4,6 +4,9 @@ const APIError = require('../models/ApiError');
 const Phrase = require('../models/Phrase');
 const validateJSONSchema = require('../helpers/validateJSONSchema');
 const addPhraseSchema = require('../schemas/addPhraseSchema.json');
+const {
+  validateQueryStringParams
+} = require('../middleware/validateQueryStringParams');
 
 /** Base Route /phrases */
 
@@ -12,17 +15,18 @@ const addPhraseSchema = require('../schemas/addPhraseSchema.json');
  * @param { object } req.query - request query params
  * @param { number } page - pagination option
  * @param { number } limit - limit amount of items to return
+ * @return { phrases: [ { id, text, createdat }, ... ] }
  */
-router.get('/', async (req, res, next) => {
+router.get('/', validateQueryStringParams, async (req, res, next) => {
   try {
-    const { page = 0, limit = 25 } = req.query;
+    const { page, limit } = req.query;
     const phrases = await Phrase.getPhrases({ page, limit });
     return res.json({
       phrases
     });
   } catch (error) {
     const err = new APIError(
-      'Resource is currently unavailable, please try again later',
+      'Resource is not available, please try later',
       500
     );
     return next(err);
@@ -34,6 +38,7 @@ router.get('/', async (req, res, next) => {
  * @param { object } req.body - request body
  * @param { object } req.body.phrase - phrase object
  * @param { string } req.body.phrase.text - new phrase text to add
+ * @return { phrase: { id, text, createdat }, message: 'Successfully added!' }
  */
 router.post('/', async (req, res, next) => {
   try {
@@ -51,12 +56,11 @@ router.post('/', async (req, res, next) => {
     });
   } catch (error) {
     const err = new APIError(
-      'Resource is currently unavailable, please try again later',
+      'Resource is not available, please try later',
       500
     );
     return next(err);
   }
 });
 
-// exports router for app.js use
 module.exports = router;

@@ -12,8 +12,10 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const PORT = process.env.PORT || 3000;
+const MAX_PHRASE_LIMIT = 25;
 
 module.exports = {
   DB_URI,
-  PORT
+  PORT,
+  MAX_PHRASE_LIMIT
 };

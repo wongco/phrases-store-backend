@@ -1,6 +1,6 @@
-# Node/Express API Backend for Phrase-store Application
+# Node/Express API Backend for Phrases-store Application
 
-This is the backend for the phrase-store application. It provides the ability to add and request phrases stored in the PostgreSQL database and outputs the data as JSON.
+This is the backend for the phrases-store application. It provides the ability to add and request phrases stored in the PostgreSQL database and outputs the data as JSON.
 
 ## Setup
 
@@ -11,20 +11,34 @@ To install application
 
    `npm install`
 
-3. create postgres database & table sample data by running seed file
+3. create postgres databases (local production and test)
 
-   `psql -f seed.sql`
+   `createdb phrases-store`
 
-4. startup server
+   `createdb phrases-store-test`
+
+4. setup table and sample data by running seed file
+
+   `psql phrases-store < seed.sql`
+
+   `psql phrases-store-test < seed.sql`
+
+5. startup server
 
    `node servers.js`
+
+## Running Tests
+
+In the root folder, run:
+
+    `npm test`
 
 ## Endpoints
 
 - GET - /phrases (pagination and limit options)
 - POST - /phrases
 
-## Build With
+## Built With
 
 - Node.js - Server Language
 - Express.js - Node Web Framework
@@ -32,6 +46,7 @@ To install application
 - dotenv - Env Variable Parser
 - jsonschema - JSON Validation Library
 - pg - PostgreSQL client for Node.js
+- cors - Cross Origin Resource Sharing Library
 
 Testing stack:
 
@@ -41,9 +56,7 @@ Testing stack:
 
 ## Future Addons
 
-- Further Exploration:
-
-  - Add duplication check in phrase db model
+- Add duplication check in phrase db model
 
 ## Author
 

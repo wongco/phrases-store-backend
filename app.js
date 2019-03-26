@@ -1,6 +1,7 @@
 /** Express app */
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const APIError = require('./models/ApiError');
 
 // don't provide http logging during automated tests
@@ -16,10 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // import route handler for /phrases subroute
 const phrasesRoute = require('./routes/phrases');
-app.use('/phrases', phrasesRoute);
+
+app.use('/phrases', cors(), phrasesRoute);
 
 /** 404 handler */
-app.use(function(req, res, next) {
+app.use(cors(), (req, res, next) => {
   const err = new APIError(`${req.url} is not a valid path to a API resource.`);
   err.status = 404;
 
@@ -28,7 +30,7 @@ app.use(function(req, res, next) {
 });
 
 /** general error handler */
-app.use(function(err, req, res, next) {
+app.use(cors(), (err, req, res, next) => {
   // all errors that get to here get coerced into API Errors
   if (!(err instanceof APIError)) {
     err = new APIError(err.message, err.status);

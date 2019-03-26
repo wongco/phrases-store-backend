@@ -1,4 +1,5 @@
 const db = require('../db');
+const { MAX_PHRASE_LIMIT } = require('../config');
 
 /** Phrase DB Model */
 class Phrase {
@@ -8,7 +9,7 @@ class Phrase {
    * @property {number} page - pagination option
    * @return {Promise <[ { id, text, createdat }, ... ]>}
    */
-  static async getPhrases({ page = 0, limit = 25 }) {
+  static async getPhrases({ page = 0, limit = MAX_PHRASE_LIMIT }) {
     const result = await db.query(
       'SELECT * FROM phrases ORDER BY createdat DESC OFFSET $1 LIMIT $2',
       [page, limit]
