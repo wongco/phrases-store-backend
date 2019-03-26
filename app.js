@@ -6,7 +6,6 @@ const APIError = require('./models/ApiError');
 
 // don't provide http logging during automated tests
 if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
-  // middleware for logging HTTP requests to console
   const morgan = require('morgan');
   app.use(morgan('tiny'));
 }
@@ -15,9 +14,7 @@ if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// import route handler for /phrases subroute
 const phrasesRoute = require('./routes/phrases');
-
 app.use('/phrases', cors(), phrasesRoute);
 
 /** 404 handler */

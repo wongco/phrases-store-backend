@@ -3,10 +3,9 @@
 // read .env files and make environmental variables
 require('dotenv').config();
 
-// pull db uri from .env or actual ENV
 let DB_URI = process.env.DATABASE_URL || 'postgresql:///phrases-store';
 
-// if test environment is active, optimize for performance and convenience
+// test db uri
 if (process.env.NODE_ENV === 'test') {
   DB_URI = 'postgresql:///phrases-store-test';
 }
