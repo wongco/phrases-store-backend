@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'test') {
   DB_URI = 'postgresql:///phrases-store-test';
 }
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const MAX_PHRASE_LIMIT = 25;
 
 module.exports = {
