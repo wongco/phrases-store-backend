@@ -41,6 +41,10 @@ To install application
 
    `npm start`
 
+6. Default backend URL is located at:
+
+   [http://localhost:5000/](http://localhost:5000/)
+
 ## Running Tests
 
 In the root folder, run:
