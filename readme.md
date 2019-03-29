@@ -17,7 +17,7 @@ To install application
 
    `git clone git@github.com:wongco/phrases-store-backend.git`
 
-2. install packages using
+2. change into repo directory and install packages using
 
    `cd phrases-store-backend`
 
