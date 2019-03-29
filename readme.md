@@ -1,23 +1,37 @@
 # Node/Express API Backend for Phrases-store Application
 
-This is the backend for the phrases-store application. It provides the ability to add and request phrases stored in the PostgreSQL database and outputs the data as JSON.
+This is the backend for the Phrases-store application. It provides the ability to add and request phrases stored in the PostgreSQL database and outputs the data as JSON.
+
+## Prerequisites
+
+You will need to install these applications before proceeding.
+
+- PostgreSQL v11 and up
+- Node v10.14.1 + npm
 
 ## Setup
 
 To install application
 
 1. git clone repo to local environment
+
+   `git clone git@github.com:wongco/phrases-store-backend.git`
+
 2. install packages using
+
+   `cd phrases-store-backend`
 
    `npm install`
 
 3. create postgres databases (local production and test)
 
+   **CAUTION: this step will drop your existing databases if they exit**
+
    `createdb phrases-store`
 
    `createdb phrases-store-test`
 
-4. setup table and sample data by running seed file
+4. setup tables and sample data by running seed file
 
    `psql phrases-store < seed.sql`
 
@@ -25,7 +39,7 @@ To install application
 
 5. startup server
 
-   `node servers.js`
+   `npm start`
 
 ## Running Tests
 
@@ -54,7 +68,7 @@ Testing stack:
 - supertest - Testing Library (mock http requests)
 - morgan - HTTP Request Logger
 
-## Future Addons
+## Potential Improvements
 
 - Add duplication check in phrase db model
 
