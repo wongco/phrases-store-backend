@@ -1,7 +1,11 @@
 const { validate } = require('jsonschema');
 const APIError = require('../models/ApiError');
 
-/** runs the validation module from jsonschema and throws error with causes */
+/**
+ * @description - runs the validation module from jsonschema and throws error with causes
+ * @param { object } reqData - request body json object
+ * @param { json } schema - JSON schema validation template
+ */
 function validateJSONSchema(reqData, schema) {
   const schemaValidation = validate(reqData, schema);
 

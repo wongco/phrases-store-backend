@@ -1,6 +1,12 @@
 const { MAX_PHRASE_LIMIT } = require('../config');
 const APIError = require('../models/ApiError');
 
+/**
+ * @description Middleware for validating request query parameters
+ * @param { object } req - request object
+ * @param { object } res - response object
+ * @param { function } next - next function
+ */
 function validateQueryStringParams(req, res, next) {
   let { page = 0, limit = MAX_PHRASE_LIMIT } = req.query;
   try {
@@ -11,7 +17,7 @@ function validateQueryStringParams(req, res, next) {
       throw new Error('Invalid query parameters, please check values');
     }
 
-    // mutate req query strings params if out of range
+    // mutate request query strings params if out of range
     req.query.page = page < 0 ? 0 : page;
     req.query.limit =
       limit < MAX_PHRASE_LIMIT && limit > 0 ? limit : MAX_PHRASE_LIMIT;

@@ -4,7 +4,7 @@ const app = express();
 const cors = require('cors');
 const APIError = require('./models/ApiError');
 
-// don't provide http logging during automated tests
+// don't provide http logging during automated tests and production
 if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
   const morgan = require('morgan');
   app.use(morgan('tiny'));
